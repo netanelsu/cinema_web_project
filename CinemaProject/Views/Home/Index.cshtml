@@ -1,0 +1,112 @@
+﻿@model IEnumerable<CinemaProject.ViewModels.MovieViewModel>
+@using CinemaProject.Dal
+@using CinemaProject.Models
+@{
+    ViewBag.Title = "Cinema Home";
+}
+
+<div class="jumbotron">
+    <h1>Wellcome to  Our Cinema !</h1>
+</div>
+
+
+
+
+        <p class="lead"><b>Movie gallery:</b></p>
+        <table id ="myTable"class="table table-condensed" >
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MovieName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HallId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Poster)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MinAge)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.onSale)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category)
+                    </th>
+                    <th>
+                        <b>Number Of Orders</b>
+                    </th>
+                    <th>
+                        <b>order</b>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var context = new MoviesDBMapping();
+                    var movie = context.MoviesList;
+                }
+                @foreach (var item in Model)
+                {
+                    if (item.Date > DateTime.Now)
+                    {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MovieName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HallId)
+                    </td>
+                    <td>
+
+                        <img src="@Html.DisplayFor(modelItem => item.Poster)" alt="movie poster" style="width:50px;height:50px;" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MinAge)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.onSale)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        @movie.Find(item.MoviePresentId).Movie.NumOfOrders
+                    </td>
+                    <td>
+                        @Html.ActionLink("Purchase A Ticket", "BuyTicket", new { id = item.MoviePresentId })
+                    </td>
+                </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    
+
+
+@section Scripts{ 
+    <script type="text/javascript">
+       
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "ordering": true
+            });
+        });
+         
+       
+    </script>
+}

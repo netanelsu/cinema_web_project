@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CinemaProject.ViewModels.TicketViewModel>
+@using CinemaProject.Models
+@using CinemaProject.Dal
+
+
+@{
+    ViewBag.Title = "Cart";
+}
+
+<h2>Cart</h2>
+@{ 
+    var context = new MoviesDBMapping();
+    var screenings = context.MoviesList;
+    
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieName)
+        </th>
+        <th>
+            <b>Date</b>
+        </th>
+        <th>
+            <b>Hall</b>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SeatId)
+        </th>
+        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieName)
+            </td>
+            <td>
+                @screenings.Find(item.MovieId).Date
+            </td>
+            <td>
+                @screenings.Find(item.MovieId).HallId
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatId)
+            </td>
+
+        </tr>
+     }
+
+</table>
+
+
+<br />
+<br />
+@Html.ActionLink("Pay", "Checkout")
+<br/> 
+@Html.ActionLink("Cancel", "CancelOrder")

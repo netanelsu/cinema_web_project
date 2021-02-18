@@ -1,0 +1,47 @@
+﻿@model IEnumerable<CinemaProject.Models.MovieScreen>
+
+@{
+    ViewBag.Title = "Screenings";
+}
+
+<h2>Screenings</h2>
+
+@Html.ActionLink("Add to Screenings", "AddMoviesToScreenings")
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Hall)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Movie.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hall.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movie.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.ActionLink("Change Hall", "ChangeHall", new { id = item.Id })
+
+            </td>
+        </tr>
+    }
+
+</table>
+<div>
+    @Html.ActionLink("Back to Admin Home", "AdminHomePage")
+</div>
+

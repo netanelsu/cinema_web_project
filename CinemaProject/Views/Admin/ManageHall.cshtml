@@ -1,0 +1,40 @@
+﻿@model IEnumerable<CinemaProject.Models.Hall>
+
+@{
+    ViewBag.Title = "ManageHall";
+}
+
+<h2>ManageHall</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddHall")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seats)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Seats)
+        </td>
+        <td>
+           @Html.ActionLink("Change Seat Number", "ChangeSeatNumber", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+<div>
+    @Html.ActionLink("Back to Admin Home", "AdminHomePage")
+</div>
